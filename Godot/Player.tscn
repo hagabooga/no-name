@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Player.gdns" type="Script" id=1]
+[ext_resource path="res://Scene.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+
+[sub_resource type="CapsuleMesh" id=7]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 10, 1, 10 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 20, 2, 20 )
+
+[sub_resource type="CylinderShape" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CylinderMesh" id=6]
+material = SubResource( 5 )
+
+[node name="Scene" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Player" type="KinematicBody" parent="."]
+transform = Transform( 0.7, 0, 0, 0, -3.0598e-08, 0.7, 0, -0.7, -3.0598e-08, 0, 4.08034, 0 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera" type="Camera" parent="Player"]
+transform = Transform( 1.67692, 0, 0, 0, -2.08169e-07, -1, 0, 1.27773, -1.62921e-07, 0, -1.98767e-07, 1.22002 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Cylinder" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10084, 2.2055, -6.60198 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Cylinder"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cylinder"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Cylinder2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.87733, 2.2055, -2.90779 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Cylinder2"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cylinder2"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Cylinder3" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82149, 2.2055, 1.37368 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Cylinder3"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cylinder3"]
+mesh = SubResource( 6 )
+material/0 = null
