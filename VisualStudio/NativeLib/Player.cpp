@@ -45,19 +45,25 @@ void Player::_physics_process(float delta)
 
 }
 
-void Player::_unhandled_input(InputEvent * ev)
+void Player::_unhandled_input(InputEvent* ev)
 {
 	auto* mouse = cast_to<InputEventMouseMotion>(ev);
 	if (mouse != NULL)
 	{
-		rotate_y(Helper::deg2rad(-mouse->get_relative().x * mouse_sensitivity));
+		rotate_head(mouse);
 
-		float change = -mouse->get_relative().y * mouse_sensitivity;
-		if (change + camera_angle < 90.0 && change + camera_angle > -90.0f)
-		{
-			camera->rotate_x(Helper::deg2rad(change));
-			camera_angle += change;
-		}
+	}
+}
+
+void Player::rotate_head(InputEventMouseMotion* mouse)
+{
+	Vector2 relative = mouse->get_relative();
+	rotate_y(Helper::deg2rad(-relative.x * mouse_sensitivity));
+	float change = -relative.y * mouse_sensitivity;
+	if (change + camera_angle < 90.0 && change + camera_angle > -90.0f)
+	{
+		camera->rotate_x(Helper::deg2rad(change));
+		camera_angle += change;
 	}
 }
 
@@ -83,11 +89,10 @@ void Player::get_input(float delta)
 	{
 		direction += aim.z;
 	}
+	direction.y = 0;
 	direction.normalize();
 	velocity.y += gravity * delta;
-
 	Vector3 temp_velocity = velocity;
-
 	temp_velocity.y = 0;
 
 	float speed = max_speed;
@@ -97,6 +102,8 @@ void Player::get_input(float delta)
 	Vector3 target = direction * speed;
 
 	float acceleration = deaccel;
+	//cout << direction.dot(temp_velocity) << endl;
+	Godot::print(direction);
 	if (direction.dot(temp_velocity) > 0)
 		acceleration = accel;
 
@@ -107,5 +114,4 @@ void Player::get_input(float delta)
 
 	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
 		velocity.y = jump_height;
-
 }

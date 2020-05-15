@@ -2,12 +2,9 @@
 i:\no-name\godot-cpp\include\core\vector2.hpp(218): warning C4244: 'argument': conversion from 'double' to 'real_t', possible loss of data
 i:\no-name\godot-cpp\include\core\vector2.hpp(217): warning C4244: 'argument': conversion from 'double' to 'real_t', possible loss of data
 i:\no-name\visualstudio\nativelib\common.h(18): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-i:\no-name\visualstudio\nativelib\player.h(22): warning C4305: 'initializing': truncation from 'double' to 'float'
   Player.cpp
 i:\no-name\godot-cpp\include\core\vector2.hpp(218): warning C4244: 'argument': conversion from 'double' to 'real_t', possible loss of data
 i:\no-name\godot-cpp\include\core\vector2.hpp(217): warning C4244: 'argument': conversion from 'double' to 'real_t', possible loss of data
 i:\no-name\visualstudio\nativelib\common.h(18): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-i:\no-name\visualstudio\nativelib\player.h(22): warning C4305: 'initializing': truncation from 'double' to 'float'
+i:\no-name\visualstudio\nativelib\player.cpp(97): error C2146: syntax error: missing ';' before identifier 'temp_velocity'
   Generating Code...
-     Creating library I:\no-name\VisualStudio\NativeLib\Debug\NativeLib.lib and object I:\no-name\VisualStudio\NativeLib\Debug\NativeLib.exp
-LINK : fatal error LNK1561: entry point must be defined

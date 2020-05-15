@@ -39,6 +39,8 @@ public:
 	void _physics_process(float delta);
 	void _unhandled_input(InputEvent* ev);
 
+
+	void rotate_head(InputEventMouseMotion* mouse);
 	void get_input(float delta);
 
 
