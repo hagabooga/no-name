@@ -29,15 +29,15 @@ material = SubResource( 6 )
 script = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.7, 0, 0, 0, -3.0598e-08, 0.7, 0, -0.7, -3.0598e-08, 0, 4.08034, 0 )
+transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, 0.7, 0, -0.6, -3.0598e-08, 0, 4.08034, 0 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Camera" type="Camera" parent="Player"]
-transform = Transform( 1.42857, 0, 0, 0, -6.24448e-08, -1.42857, 0, 1.42857, -6.24448e-08, 0, 0.610452, 1.69715 )
-fov = 90.0
+transform = Transform( 1.66667, 0, 0, 0, -6.24448e-08, -1.66667, 0, 1.42857, -5.35241e-08, 0, 0.610452, 1.69715 )
+current = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 shape = SubResource( 1 )
@@ -97,3 +97,9 @@ shape = SubResource( 5 )
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder3"]
 mesh = SubResource( 7 )
 material/0 = null
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.009704, 0.999953, 0, -0.999953, -0.009704, 1.90854, 9.68572, -1.47032 )
+spot_range = 18.0
+spot_attenuation = 1.23115
+spot_angle = 59.8
