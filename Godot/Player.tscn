@@ -1,29 +1,30 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player.gdns" type="Script" id=1]
 [ext_resource path="res://Scene.gd" type="Script" id=2]
+[ext_resource path="res://sprites/crosshair001.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0, 1, 0.368627, 1 )
 
-[sub_resource type="CapsuleMesh" id=2]
-material = SubResource( 8 )
+[sub_resource type="CapsuleMesh" id=3]
+material = SubResource( 2 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 10, 1, 10 )
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=5]
 size = Vector3( 20, 2, 20 )
 
-[sub_resource type="CylinderShape" id=5]
+[sub_resource type="CylinderShape" id=6]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=7]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="CylinderMesh" id=7]
-material = SubResource( 6 )
+[sub_resource type="CylinderMesh" id=8]
+material = SubResource( 7 )
 
 [node name="Scene" type="Node"]
 script = ExtResource( 2 )
@@ -35,6 +36,32 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="UnhandledUI" type="Control" parent="Player/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Player/CanvasLayer/UnhandledUI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Camera" type="Camera" parent="Player"]
 transform = Transform( 1.66667, 0, 0, 0, -6.24448e-08, -1.66667, 0, 1.42857, -5.35241e-08, 0, 0.610452, 1.69715 )
 current = true
@@ -43,7 +70,7 @@ current = true
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="."]
@@ -53,10 +80,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="Cylinder" type="StaticBody" parent="."]
@@ -66,10 +93,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder"]
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Cylinder2" type="StaticBody" parent="."]
@@ -79,10 +106,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder2"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder2"]
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Cylinder3" type="StaticBody" parent="."]
@@ -92,10 +119,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder3"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder3"]
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="SpotLight" type="SpotLight" parent="."]
