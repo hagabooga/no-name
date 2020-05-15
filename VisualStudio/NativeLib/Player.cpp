@@ -105,7 +105,7 @@ void Player::get_input(float delta)
 	velocity.z = temp_velocity.z;
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0));
 
-	if (input->is_action_just_pressed("ui_select"))
+	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
 		velocity.y = jump_height;
 
 }
