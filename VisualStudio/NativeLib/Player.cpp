@@ -36,6 +36,7 @@ void Player::_ready()
 	input = Input::get_singleton();
 	input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
 	camera = cast_to<Camera>(get_node("Camera"));
+	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
 }
 
 void Player::_physics_process(float delta)
@@ -52,6 +53,11 @@ void Player::_unhandled_input(InputEvent* ev)
 	{
 		rotate_head(mouse);
 
+	}
+	auto* mouseclick = cast_to<InputEventMouseButton>(ev);
+	if (mouseclick != NULL && mouseclick->is_pressed())
+	{
+		look();
 	}
 }
 
@@ -102,8 +108,6 @@ void Player::get_input(float delta)
 	Vector3 target = direction * speed;
 
 	float acceleration = deaccel;
-	//cout << direction.dot(temp_velocity) << endl;
-	Godot::print(direction);
 	if (direction.dot(temp_velocity) > 0)
 		acceleration = accel;
 
@@ -114,4 +118,13 @@ void Player::get_input(float delta)
 
 	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
 		velocity.y = jump_height;
+}
+
+void Player::look()
+{
+	if (line_of_sight->is_colliding())
+	{
+		PhysicsBody* body = cast_to<PhysicsBody>(line_of_sight->get_collider());
+		//body->queue_free();
+	}
 }

@@ -3,8 +3,12 @@
 #include <KinematicBody.hpp>
 #include <Input.hpp>
 #include <InputEventMouseMotion.hpp>
+#include <InputEventMouseButton.hpp>
 #include <Engine.hpp>
 #include <Camera.hpp>
+#include <RayCast.hpp>
+#include <PhysicsBody.hpp>
+
 
 class Player : public KinematicBody
 {
@@ -24,6 +28,7 @@ private:
 	Vector3 velocity = Vector3();
 	Camera* camera;
 	Input* input;
+	RayCast* line_of_sight;
 
 
 
@@ -42,6 +47,8 @@ public:
 
 	void rotate_head(InputEventMouseMotion* mouse);
 	void get_input(float delta);
+
+	void look();
 
 
 

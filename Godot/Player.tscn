@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.gdns" type="Script" id=1]
-[ext_resource path="res://Scene.gd" type="Script" id=2]
 [ext_resource path="res://sprites/crosshair001.png" type="Texture" id=3]
 [ext_resource path="res://sprites/grass.jpg" type="Texture" id=4]
 
@@ -16,26 +15,25 @@ material = SubResource( 2 )
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 10, 1, 10 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_texture = ExtResource( 4 )
 
-[sub_resource type="CubeMesh" id=5]
-material = SubResource( 9 )
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
 size = Vector3( 20, 2, 20 )
 
-[sub_resource type="CylinderShape" id=6]
+[sub_resource type="CylinderShape" id=7]
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="CylinderMesh" id=8]
-material = SubResource( 7 )
+[sub_resource type="CylinderMesh" id=9]
+material = SubResource( 8 )
 
 [node name="Scene" type="Node"]
-script = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, 0.7, 0, -0.6, -3.0598e-08, 0, 4.08034, 0 )
+transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, 0.7, 0, -0.6, -3.0598e-08, 0, 1.55409, 0 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -71,6 +69,11 @@ __meta__ = {
 transform = Transform( 1.66667, 0, 0, 0, -6.24448e-08, -1.66667, 0, 1.42857, -5.35241e-08, 0, 0.610452, 1.69715 )
 current = true
 
+[node name="RayCast" type="RayCast" parent="Player/Camera"]
+transform = Transform( 0.6, 0, 0, 0, -2.24801e-08, 0.7, 0, -0.6, -2.62268e-08, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, 100, 0 )
+
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 shape = SubResource( 1 )
 
@@ -88,7 +91,7 @@ __meta__ = {
 shape = SubResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="Cylinder" type="StaticBody" parent="."]
@@ -98,10 +101,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder"]
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Cylinder2" type="StaticBody" parent="."]
@@ -111,10 +114,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder2"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder2"]
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Cylinder3" type="StaticBody" parent="."]
@@ -124,10 +127,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="Cylinder3"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cylinder3"]
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="SpotLight" type="SpotLight" parent="."]
