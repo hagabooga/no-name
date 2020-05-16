@@ -9,7 +9,7 @@
 #include <RayCast.hpp>
 #include <PhysicsBody.hpp>
 #include <AnimationPlayer.hpp>
-
+#include "Gun.h"
 
 class Player : public KinematicBody
 {
@@ -26,13 +26,13 @@ private:
 	float mouse_sensitivity = 0.2f;
 
 	float camera_angle = 0.0f;
+	bool holding_left_click = false;
+
 	Vector3 velocity = Vector3();
 	Camera* camera;
 	Input* input;
 	RayCast* line_of_sight;
-
-
-
+	Gun* equipped_gun;
 
 public:
 	static void _register_methods();

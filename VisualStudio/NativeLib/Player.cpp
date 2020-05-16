@@ -23,7 +23,6 @@ Player::Player()
 
 Player::~Player()
 {
-	// add your cleanup here
 }
 
 void Player::_init()
@@ -37,13 +36,22 @@ void Player::_ready()
 	input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
 	camera = cast_to<Camera>(get_node("Camera"));
 	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
+	equipped_gun = cast_to<Gun>(camera->get_node("EquippedGun")->get_node("Gun"));
+	//cout << equipped_gun;
 }
 
 void Player::_physics_process(float delta)
 {
 
 	get_input(delta);
-
+	if (equipped_gun != NULL)
+	{
+		if ((equipped_gun->automatic && input->is_action_pressed("fire"))
+			|| input->is_action_just_pressed("fire"))
+		{
+			equipped_gun->fire();
+		}
+	}
 }
 
 void Player::_unhandled_input(InputEvent* ev)
@@ -53,11 +61,6 @@ void Player::_unhandled_input(InputEvent* ev)
 	{
 		rotate_head(mouse);
 
-	}
-	auto* mouseclick = cast_to<InputEventMouseButton>(ev);
-	if (mouseclick != NULL && mouseclick->is_pressed())
-	{
-		look();
 	}
 }
 
@@ -125,9 +128,6 @@ void Player::look()
 	if (line_of_sight->is_colliding())
 	{
 		PhysicsBody* body = cast_to<PhysicsBody>(line_of_sight->get_collider());
-
-		body->queue_free();
 	}
-	auto* anim = cast_to<AnimationPlayer>(get_node("Gun")->get_node("AnimationPlayer"));
-	anim->play("fire");
+
 }
