@@ -8,6 +8,7 @@
 #include <Camera.hpp>
 #include <RayCast.hpp>
 #include <PhysicsBody.hpp>
+#include <AnimationPlayer.hpp>
 
 
 class Player : public KinematicBody

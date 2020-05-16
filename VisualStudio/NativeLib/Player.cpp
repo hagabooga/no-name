@@ -125,6 +125,9 @@ void Player::look()
 	if (line_of_sight->is_colliding())
 	{
 		PhysicsBody* body = cast_to<PhysicsBody>(line_of_sight->get_collider());
-		//body->queue_free();
+
+		body->queue_free();
 	}
+	auto* anim = cast_to<AnimationPlayer>(get_node("Gun")->get_node("AnimationPlayer"));
+	anim->play("fire");
 }
