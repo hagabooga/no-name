@@ -37,6 +37,7 @@ void Player::_ready()
 	input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
 	camera = cast_to<Camera>(get_node("Camera"));
 	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
+	held_body = NULL;
 }
 
 void Player::_physics_process(float delta)
@@ -59,6 +60,7 @@ void Player::_unhandled_input(InputEvent* ev)
 	{
 		look();
 	}
+
 }
 
 void Player::rotate_head(InputEventMouseMotion* mouse)
@@ -118,6 +120,16 @@ void Player::get_input(float delta)
 
 	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
 		velocity.y = jump_height;
+
+	if(input->is_action_just_pressed("grab"))
+	{
+		pickup();
+	}
+	if(held_body != NULL)
+	{
+		Godot::print("moving held body");
+		held_body->get_global_transform().set_origin(camera->get_global_transform().get_origin());
+	}
 }
 
 void Player::look()
@@ -126,8 +138,21 @@ void Player::look()
 	{
 		PhysicsBody* body = cast_to<PhysicsBody>(line_of_sight->get_collider());
 
-		body->queue_free();
+		//body->queue_free();
 	}
 	auto* anim = cast_to<AnimationPlayer>(get_node("Gun")->get_node("AnimationPlayer"));
 	anim->play("fire");
+}
+
+void Player::pickup()
+{
+	if(line_of_sight->is_colliding())
+	{
+		held_body = cast_to<Pickable>(line_of_sight->get_collider());
+		ERR_FAIL_COND(held_body == nullptr);
+		if(held_body != NULL && held_body->has_method("pick_up"))
+		{
+			held_body->pick_up(this); 
+		}
+	}
 }

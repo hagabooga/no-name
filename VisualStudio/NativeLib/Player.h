@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+#include "Pickable.h"
 #include <KinematicBody.hpp>
 #include <Input.hpp>
 #include <InputEventMouseMotion.hpp>
@@ -9,7 +10,7 @@
 #include <RayCast.hpp>
 #include <PhysicsBody.hpp>
 #include <AnimationPlayer.hpp>
-
+#include <RigidBody.hpp>
 
 class Player : public KinematicBody
 {
@@ -30,7 +31,7 @@ private:
 	Camera* camera;
 	Input* input;
 	RayCast* line_of_sight;
-
+	Pickable* held_body;
 
 
 
@@ -50,7 +51,8 @@ public:
 	void get_input(float delta);
 
 	void look();
-
+	void pickup();
+	void set_pickable(Pickable* pickable);
 
 
 };
