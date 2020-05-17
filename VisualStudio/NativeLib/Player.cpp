@@ -37,7 +37,7 @@ void Player::_ready()
 	input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
 	camera = cast_to<Camera>(get_node("Camera"));
 	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
-	held_body = NULL;
+	//body = NULL;
 }
 
 void Player::_physics_process(float delta)
@@ -125,11 +125,6 @@ void Player::get_input(float delta)
 	{
 		pickup();
 	}
-	if(held_body != NULL)
-	{
-		Godot::print("moving held body");
-		held_body->get_global_transform().set_origin(camera->get_global_transform().get_origin());
-	}
 }
 
 void Player::look()
@@ -146,13 +141,23 @@ void Player::look()
 
 void Player::pickup()
 {
+	if(holding)
+		{
+			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
+			held_body->pick_up(pickup_pos_node);
+			holding = false;
+		}
 	if(line_of_sight->is_colliding())
 	{
 		held_body = cast_to<Pickable>(line_of_sight->get_collider());
-		ERR_FAIL_COND(held_body == nullptr);
-		if(held_body != NULL && held_body->has_method("pick_up"))
+		//ERR_FAIL_COND(body == nullptr);
+		Godot::print("wtf");
+		if(held_body != NULL)
 		{
-			held_body->pick_up(this); 
+			Godot::print("trying to pick up");
+			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
+			held_body->pick_up(pickup_pos_node); 
+			holding = true;
 		}
 	}
 }

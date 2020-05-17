@@ -65,4 +65,4 @@ material/0 = null
 transform = Transform( -1.62921e-07, -0.999999, 0, 0.999999, -1.62921e-07, 0, 0, 0, 0.999996, 0.672253, 1.46955, 1.13881 )
 
 [node name="pickup_pos" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 3.90799e-14, 0.999999, 0, 2.9461, 0.286856 )
+transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 4.9738e-14, 0.999998, 0, 2.9461, 1.02314 )
