@@ -65,3 +65,6 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 3 )
 material/0 = null
+
+[node name="pickup_pos" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 4.9738e-14, 0.999998, 0, 2.9461, 1.02314 )

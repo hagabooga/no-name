@@ -37,7 +37,7 @@ void Player::_ready()
 	camera = cast_to<Camera>(get_node("Camera"));
 	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
 	equipped_gun = cast_to<Gun>(camera->get_node("EquippedGun")->get_node("Gun"));
-	//cout << equipped_gun;
+
 }
 
 void Player::_physics_process(float delta)
@@ -121,13 +121,32 @@ void Player::get_input(float delta)
 
 	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
 		velocity.y = jump_height;
+
+	if (input->is_action_just_pressed("grab"))
+	{
+		pickup();
+	}
 }
 
-void Player::look()
+void Player::pickup()
 {
+	if (holding)
+	{
+		auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
+		held_body->pick_up(pickup_pos_node);
+		holding = false;
+	}
 	if (line_of_sight->is_colliding())
 	{
-		PhysicsBody* body = cast_to<PhysicsBody>(line_of_sight->get_collider());
+		held_body = cast_to<Pickable>(line_of_sight->get_collider());
+		//ERR_FAIL_COND(body == nullptr);
+		Godot::print("wtf");
+		if (held_body != NULL)
+		{
+			Godot::print("trying to pick up");
+			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
+			held_body->pick_up(pickup_pos_node);
+			holding = true;
+		}
 	}
-
 }

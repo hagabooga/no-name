@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+
 #include <KinematicBody.hpp>
 #include <Input.hpp>
 #include <InputEventMouseMotion.hpp>
@@ -9,6 +10,8 @@
 #include <RayCast.hpp>
 #include <PhysicsBody.hpp>
 #include <AnimationPlayer.hpp>
+#include <RigidBody.hpp>
+#include "Pickable.h"
 #include "Gun.h"
 
 class Player : public KinematicBody
@@ -32,6 +35,8 @@ private:
 	Camera* camera;
 	Input* input;
 	RayCast* line_of_sight;
+	Pickable* held_body;
+	bool holding = false;
 	Gun* equipped_gun;
 
 public:
@@ -49,9 +54,6 @@ public:
 	void rotate_head(InputEventMouseMotion* mouse);
 	void get_input(float delta);
 
-	void look();
-
-
-
+	void pickup();
 };
 
