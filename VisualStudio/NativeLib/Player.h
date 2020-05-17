@@ -12,6 +12,8 @@
 #include <AnimationPlayer.hpp>
 #include <RigidBody.hpp>
 #include "Pickable.h"
+#include "Gun.h"
+
 class Player : public KinematicBody
 {
 	GODOT_CLASS(Player, KinematicBody);
@@ -27,12 +29,15 @@ private:
 	float mouse_sensitivity = 0.2f;
 
 	float camera_angle = 0.0f;
+	bool holding_left_click = false;
+
 	Vector3 velocity = Vector3();
 	Camera* camera;
 	Input* input;
 	RayCast* line_of_sight;
 	Pickable* held_body;
 	bool holding = false;
+	Gun* equipped_gun;
 
 public:
 	static void _register_methods();
@@ -49,7 +54,6 @@ public:
 	void rotate_head(InputEventMouseMotion* mouse);
 	void get_input(float delta);
 
-	void look();
 	void pickup();
 };
 

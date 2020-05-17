@@ -119,9 +119,13 @@
   <ItemGroup>
     <ClCompile Include="NativeLib.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Gun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="Gun.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="NativeLib.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

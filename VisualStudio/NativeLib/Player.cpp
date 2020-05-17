@@ -23,7 +23,6 @@ Player::Player()
 
 Player::~Player()
 {
-	// add your cleanup here
 }
 
 void Player::_init()
@@ -37,14 +36,22 @@ void Player::_ready()
 	input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
 	camera = cast_to<Camera>(get_node("Camera"));
 	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
-	//body = NULL;
+	equipped_gun = cast_to<Gun>(camera->get_node("EquippedGun")->get_node("Gun"));
+
 }
 
 void Player::_physics_process(float delta)
 {
 
 	get_input(delta);
-
+	if (equipped_gun != NULL)
+	{
+		if ((equipped_gun->automatic && input->is_action_pressed("fire"))
+			|| input->is_action_just_pressed("fire"))
+		{
+			equipped_gun->fire();
+		}
+	}
 }
 
 void Player::_unhandled_input(InputEvent* ev)
@@ -55,12 +62,6 @@ void Player::_unhandled_input(InputEvent* ev)
 		rotate_head(mouse);
 
 	}
-	auto* mouseclick = cast_to<InputEventMouseButton>(ev);
-	if (mouseclick != NULL && mouseclick->is_pressed())
-	{
-		look();
-	}
-
 }
 
 void Player::rotate_head(InputEventMouseMotion* mouse)
@@ -121,42 +122,30 @@ void Player::get_input(float delta)
 	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
 		velocity.y = jump_height;
 
-	if(input->is_action_just_pressed("grab"))
+	if (input->is_action_just_pressed("grab"))
 	{
 		pickup();
 	}
 }
 
-void Player::look()
-{
-	if (line_of_sight->is_colliding())
-	{
-		PhysicsBody* body = cast_to<PhysicsBody>(line_of_sight->get_collider());
-
-		//body->queue_free();
-	}
-	auto* anim = cast_to<AnimationPlayer>(get_node("Gun")->get_node("AnimationPlayer"));
-	anim->play("fire");
-}
-
 void Player::pickup()
 {
-	if(holding)
-		{
-			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
-			held_body->pick_up(pickup_pos_node);
-			holding = false;
-		}
-	if(line_of_sight->is_colliding())
+	if (holding)
+	{
+		auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
+		held_body->pick_up(pickup_pos_node);
+		holding = false;
+	}
+	if (line_of_sight->is_colliding())
 	{
 		held_body = cast_to<Pickable>(line_of_sight->get_collider());
 		//ERR_FAIL_COND(body == nullptr);
 		Godot::print("wtf");
-		if(held_body != NULL)
+		if (held_body != NULL)
 		{
 			Godot::print("trying to pick up");
 			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
-			held_body->pick_up(pickup_pos_node); 
+			held_body->pick_up(pickup_pos_node);
 			holding = true;
 		}
 	}
