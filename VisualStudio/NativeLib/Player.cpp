@@ -140,10 +140,8 @@ void Player::pickup()
 	{
 		held_body = cast_to<Pickable>(line_of_sight->get_collider());
 		//ERR_FAIL_COND(body == nullptr);
-		Godot::print("wtf");
 		if (held_body != NULL)
 		{
-			Godot::print("trying to pick up");
 			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
 			held_body->pick_up(pickup_pos_node);
 			holding = true;

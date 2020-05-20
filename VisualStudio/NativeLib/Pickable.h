@@ -2,6 +2,7 @@
 #include "Common.h"
 #include <RigidBody.hpp>
 #include <CollisionShape.hpp>
+#include <MeshInstance.hpp>
 class Pickable : public RigidBody
 {
     GODOT_CLASS(Pickable, RigidBody);

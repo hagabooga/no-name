@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type spatial;
+render_mode skip_vertex_transform;
+
+
+uniform float pixelSize;
+
+varying vec4 v_color;
+varying vec3 v_lighting;
+varying vec2 v_uv;
+varying vec2 v_reflect;
+varying float v_n;
+void vertex(){
+	float width = VIEWPORT_SIZE.x;
+	float height = VIEWPORT_SIZE.y;
+	float ps = pixelSize;
+	if (ps <= 0.0){ ps = 1.0; }
+	else if (ps >= 10.0) { ps = 10.0; }
+
+	float pw = width / ps;
+	float ph = height / ps;
+	vec4 P = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyzw;
+	vec4 snap = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyzw;
+	VERTEX = snap.xyz;
+	VERTEX.xyz = snap.xyz / snap.w;
+	VERTEX.x = floor(pw * VERTEX.x) / pw;
+	VERTEX.y = floor(ph * VERTEX.y) / ph;
+	VERTEX.xyz *= snap.w;
+}"
+
+[resource]
+shader = SubResource( 5 )
+shader_param/pixelSize = 10.0

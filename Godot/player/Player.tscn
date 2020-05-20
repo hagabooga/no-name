@@ -46,7 +46,7 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1.66667, 0, 0, 0, -6.24448e-08, -1.66667, 0, 1.42857, -5.35241e-08, 0, 0.610452, 1.69715 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.519907, 0.799483 )
 current = true
 
 [node name="RayCast" type="RayCast" parent="Camera"]
@@ -69,4 +69,4 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="pickup_pos" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 4.9738e-14, 0.999998, 0, 2.9461, 1.02314 )
+transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 4.9738e-14, 0.999998, 0, 2.63837, 0.653169 )
