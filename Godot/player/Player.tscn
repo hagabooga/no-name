@@ -18,6 +18,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+gravity = -40.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -49,7 +50,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.519907, 0.799483 )
 current = true
 
-[node name="RayCast" type="RayCast" parent="Camera"]
+[node name="LineOfSight" type="RayCast" parent="Camera"]
 transform = Transform( 0.6, 0, 0, 0, -2.24801e-08, 0.7, 0, -0.6, -2.62268e-08, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 100, 0 )
@@ -70,3 +71,7 @@ material/0 = null
 
 [node name="pickup_pos" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 4.9738e-14, 0.999998, 0, 2.63837, 0.653169 )
+
+[node name="GroundRayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, -0.06 )
+enabled = true

@@ -35,6 +35,7 @@ private:
 	Camera* camera;
 	Input* input;
 	RayCast* line_of_sight;
+	RayCast* ground_raycast;
 	Pickable* held_body;
 	bool holding = false;
 	Gun* equipped_gun;

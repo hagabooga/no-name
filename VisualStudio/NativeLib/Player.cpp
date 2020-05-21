@@ -32,11 +32,13 @@ void Player::_init()
 void Player::_ready()
 {
 	Engine::get_singleton()->set_target_fps(150);
+	Engine::get_singleton()->set_iterations_per_second(150);
 	input = Input::get_singleton();
 	input->set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
 	camera = cast_to<Camera>(get_node("Camera"));
-	line_of_sight = cast_to<RayCast>(camera->get_node("RayCast"));
+	line_of_sight = cast_to<RayCast>(camera->get_node("LineOfSight"));
 	equipped_gun = cast_to<Gun>(camera->get_node("EquippedGun")->get_node("Gun"));
+	ground_raycast = cast_to<RayCast>(get_node("GroundRayCast"));
 
 }
 
@@ -52,6 +54,7 @@ void Player::_physics_process(float delta)
 			equipped_gun->fire();
 		}
 	}
+
 }
 
 void Player::_unhandled_input(InputEvent* ev)
@@ -100,7 +103,16 @@ void Player::get_input(float delta)
 	}
 	direction.y = 0;
 	direction.normalize();
-	velocity.y += gravity * delta;
+	if (!ground_raycast->is_colliding())
+	{
+		velocity.y += gravity * delta;
+	}
+	else
+	{
+		velocity.y = 0;
+		if (input->is_action_just_pressed("ui_select"))
+			velocity.y = jump_height;
+	}
 	Vector3 temp_velocity = velocity;
 	temp_velocity.y = 0;
 
@@ -119,8 +131,10 @@ void Player::get_input(float delta)
 	velocity.z = temp_velocity.z;
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0));
 
-	if (is_on_floor() && input->is_action_just_pressed("ui_select"))
-		velocity.y = jump_height;
+
+
+
+
 
 	if (input->is_action_just_pressed("grab"))
 	{
