@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/grass.jpg-54652b4f79537450e43215de2d9d29fd.s3tc.stex"
-path.etc2="res://.import/grass.jpg-54652b4f79537450e43215de2d9d29fd.etc2.stex"
+path.s3tc="res://.import/easterrillakuma.PNG-b4875a28f4fb99dd2c552134171355b5.s3tc.stex"
+path.etc2="res://.import/easterrillakuma.PNG-b4875a28f4fb99dd2c552134171355b5.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/grass.jpg"
-dest_files=[ "res://.import/grass.jpg-54652b4f79537450e43215de2d9d29fd.s3tc.stex", "res://.import/grass.jpg-54652b4f79537450e43215de2d9d29fd.etc2.stex" ]
+source_file="res://sprites/easterrillakuma.PNG"
+dest_files=[ "res://.import/easterrillakuma.PNG-b4875a28f4fb99dd2c552134171355b5.s3tc.stex", "res://.import/easterrillakuma.PNG-b4875a28f4fb99dd2c552134171355b5.etc2.stex" ]
 
 [params]
 
@@ -20,10 +20,10 @@ compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=2
+compress/normal_map=0
 flags/repeat=true
 flags/filter=false
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=1
 process/fix_alpha_border=true

@@ -19,6 +19,13 @@ config/name="No Name"
 run/main_scene="res://TestWorld.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=320
+window/size/height=240
+window/size/fullscreen=true
+window/stretch/mode="viewport"
+
 [input]
 
 ui_left={
@@ -67,4 +74,5 @@ grab={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"
