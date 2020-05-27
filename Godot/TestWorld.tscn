@@ -9,12 +9,12 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 10, 1, 10 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 4.033, 3.786, 10 )
 
 [sub_resource type="CubeMesh" id=3]
-material = SubResource( 6 )
+material = SubResource( 2 )
 size = Vector3( 20, 2, 20 )
 
 [sub_resource type="CylinderShape" id=4]
@@ -25,6 +25,7 @@ material = ExtResource( 3 )
 [node name="Scene" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.62402e-05, 2.64873, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 5, -0.0033536, -0.0238438, 0.00107145 )

@@ -101,13 +101,14 @@ void Player::get_input(float delta)
 	}
 	direction.y = 0;
 	direction.normalize();
-	if (!ground_raycast->is_colliding())
+	if (!ground_raycast->is_colliding() || velocity.y > 0)
 	{
 		velocity.y += gravity * delta;
 	}
 	else
 	{
-		velocity.y = 0;
+		if (ground_raycast->is_colliding())
+			velocity.y = 0;
 		if (input->is_action_just_pressed("ui_select"))
 			velocity.y = jump_height;
 	}
