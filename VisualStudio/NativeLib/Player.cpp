@@ -155,17 +155,9 @@ void Player::checkInteract()
 			Interactable* interactable = cast_to<Interactable>(line_of_sight->get_collider());
 			bool is_interactable = interactable != NULL;
 			interact_text->set_visible(is_interactable);
-			if (press_interact_key)
+			if (press_interact_key && is_interactable)
 			{
-				if (picked_up_obj != NULL)
-				{
-					drop_pickup();
-				}
-				else if (is_interactable)
-				{
-					interact(interactable);
-				}
-
+				interact(interactable);
 			}
 		}
 		else
