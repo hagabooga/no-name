@@ -3,6 +3,8 @@
 #include "Common.h"
 #include <RigidBody.hpp>
 #include <CollisionShape.hpp>
+#include <MeshInstance.hpp>
+
 
 class Interactable : public RigidBody
 {
@@ -22,4 +24,8 @@ public:
 
 	virtual void _init();
 	virtual void _ready();
+
+	virtual void interact() = 0;
+
+
 };

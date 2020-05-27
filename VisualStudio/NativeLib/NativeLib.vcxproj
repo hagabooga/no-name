@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="NativeLib.cpp" />
     <ClCompile Include="Pickable.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Interactable.h" />

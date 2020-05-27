@@ -1,6 +1,7 @@
 #include "Common.h"
 #include "Player.h"
 #include "Pickable.h"
+#include "Door.h"
 
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o)
 {
@@ -18,4 +19,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 	godot::register_class<Pickable>();
 	godot::register_class<Gun>();
 	godot::register_class<Player>();
+	godot::register_class<Door>();
 }

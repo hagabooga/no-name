@@ -1,14 +1,12 @@
 #pragma once
 #include "Common.h"
-#include <MeshInstance.hpp>
 #include "Interactable.h"
 
 class Pickable : public Interactable
 {
 	GODOT_SUBCLASS(Pickable, Interactable);
 private:
-	//bool picked_up = false;
-	//Spatial *holder;
+	bool picked_up = false;
 public:
 	static void _register_methods();
 
@@ -20,8 +18,8 @@ public:
 
 	void _process(float delta);
 
-	void picked();
-	void dropped();
+	void interact() override;
+
 	// player should throw item
 	//void carry();
 	//void drop();

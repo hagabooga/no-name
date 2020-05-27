@@ -33,17 +33,18 @@ void Pickable::_process(float delta)
 	//}
 }
 
-void Pickable::picked()
+void Pickable::interact()
 {
-	collision_shape->set_disabled(true);
-	//get_transform().origin = Vector3(0, 0, 0);
-	set_mode(MODE_STATIC);
-}
-
-void Pickable::dropped()
-{
-	collision_shape->set_disabled(false);
-	set_mode(MODE_RIGID);
+	picked_up = !picked_up;
+	if (picked_up)
+	{
+		set_mode(MODE_STATIC);
+	}
+	else
+	{
+		set_mode(MODE_RIGID);
+	}
+	collision_shape->set_disabled(picked_up);
 }
 
 //void Pickable::pick_up(Spatial *pickup_pos_node)

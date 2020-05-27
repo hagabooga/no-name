@@ -138,17 +138,19 @@ void Player::get_input(float delta)
 
 void Player::interact()
 {
+	Interactable* interactable = cast_to<Interactable>(line_of_sight->get_collider());
 	if (picked_up_obj != NULL)
 	{
 		drop_pickup();
 	}
-	else if (line_of_sight->is_colliding() && cast_to<Interactable>(line_of_sight->get_collider()) != NULL)
+	else if (line_of_sight->is_colliding() && interactable != NULL)
 	{
-		auto* interactable = cast_to<Pickable>(line_of_sight->get_collider());
-		if (interactable != NULL)
+
+		if (cast_to<Pickable>(line_of_sight->get_collider()) != NULL)
 		{
-			pickup(interactable);
+			pickup(cast_to<Pickable>(line_of_sight->get_collider()));
 		}
+		interactable->interact();
 	}
 }
 
@@ -160,7 +162,6 @@ void Player::pickup(Pickable* pickable)
 	}
 	pickup_pos->add_child(pickable);
 	pickable->set_global_transform(pickup_pos->get_global_transform());
-	pickable->picked();
 	picked_up_obj = pickable;
 }
 
@@ -168,7 +169,7 @@ void Player::drop_pickup()
 {
 	pickup_pos->remove_child(picked_up_obj);
 	get_parent()->add_child(picked_up_obj);
-	picked_up_obj->dropped();
+	picked_up_obj->interact();
 	picked_up_obj->set_global_transform(pickup_pos->get_global_transform());
 	picked_up_obj = NULL;
 }
