@@ -79,9 +79,8 @@ material/0 = null
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.009704, 0.999953, 0, -0.999953, -0.009704, 1.90854, 9.68572, -1.47032 )
-spot_range = 18.0
-spot_attenuation = 1.23115
-spot_angle = 59.8
+spot_range = 11.2
+spot_attenuation = 0.0384734
 
 [node name="Crate" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66726, -3.55721 )

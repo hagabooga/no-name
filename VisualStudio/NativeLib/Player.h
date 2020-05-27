@@ -37,8 +37,11 @@ private:
 	RayCast* line_of_sight;
 	RayCast* ground_raycast;
 	Pickable* held_body;
-	bool holding = false;
 	Gun* equipped_gun;
+	Spatial* pickup_pos;
+
+
+	Pickable* picked_up_obj;
 
 public:
 	static void _register_methods();
@@ -55,6 +58,8 @@ public:
 	void rotate_head(InputEventMouseMotion* mouse);
 	void get_input(float delta);
 
-	void pickup();
+	void interact();
+	void pickup(Pickable* pickable);
+	void drop_pickup();
 };
 

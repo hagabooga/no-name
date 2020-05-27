@@ -1,6 +1,7 @@
 #include "Player.h"
 
 
+
 void Player::_register_methods()
 {
 	register_method("_process", &Player::_physics_process);
@@ -18,7 +19,6 @@ void Player::_register_methods()
 
 Player::Player()
 {
-
 }
 
 Player::~Player()
@@ -39,7 +39,8 @@ void Player::_ready()
 	line_of_sight = cast_to<RayCast>(camera->get_node("LineOfSight"));
 	equipped_gun = cast_to<Gun>(camera->get_node("EquippedGun")->get_node("Gun"));
 	ground_raycast = cast_to<RayCast>(get_node("GroundRayCast"));
-
+	pickup_pos = cast_to<Spatial>(get_node("PickupPos"));
+	picked_up_obj = NULL;
 }
 
 void Player::_physics_process(float delta)
@@ -48,26 +49,23 @@ void Player::_physics_process(float delta)
 	get_input(delta);
 	if (equipped_gun != NULL)
 	{
-		if ((equipped_gun->automatic && input->is_action_pressed("fire"))
-			|| input->is_action_just_pressed("fire"))
+		if ((equipped_gun->automatic && input->is_action_pressed("fire")) || input->is_action_just_pressed("fire"))
 		{
 			equipped_gun->fire();
 		}
 	}
-
 }
 
-void Player::_unhandled_input(InputEvent* ev)
+void Player::_unhandled_input(InputEvent *ev)
 {
-	auto* mouse = cast_to<InputEventMouseMotion>(ev);
+	auto *mouse = cast_to<InputEventMouseMotion>(ev);
 	if (mouse != NULL)
 	{
 		rotate_head(mouse);
-
 	}
 }
 
-void Player::rotate_head(InputEventMouseMotion* mouse)
+void Player::rotate_head(InputEventMouseMotion *mouse)
 {
 	Vector2 relative = mouse->get_relative();
 	rotate_y(Helper::deg2rad(-relative.x * mouse_sensitivity));
@@ -131,34 +129,46 @@ void Player::get_input(float delta)
 	velocity.z = temp_velocity.z;
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0));
 
-
-
-
-
-
 	if (input->is_action_just_pressed("grab"))
 	{
-		pickup();
+		interact();
 	}
 }
 
-void Player::pickup()
+void Player::interact()
 {
-	if (holding)
+	if (picked_up_obj != NULL)
 	{
-		auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
-		held_body->pick_up(pickup_pos_node);
-		holding = false;
+		drop_pickup();
 	}
-	if (line_of_sight->is_colliding())
+	else if (line_of_sight->is_colliding() && cast_to<Interactable>(line_of_sight->get_collider()) != NULL)
 	{
-		held_body = cast_to<Pickable>(line_of_sight->get_collider());
-		//ERR_FAIL_COND(body == nullptr);
-		if (held_body != NULL)
+		auto* interactable = cast_to<Pickable>(line_of_sight->get_collider());
+		if (interactable != NULL)
 		{
-			auto * pickup_pos_node = cast_to<Spatial>(get_node("pickup_pos"));
-			held_body->pick_up(pickup_pos_node);
-			holding = true;
+			pickup(interactable);
 		}
 	}
 }
+
+void Player::pickup(Pickable* pickable)
+{
+	if (pickable->get_parent() != NULL)
+	{
+		pickable->get_parent()->remove_child(pickable);
+	}
+	pickup_pos->add_child(pickable);
+	pickable->set_global_transform(pickup_pos->get_global_transform());
+	pickable->picked();
+	picked_up_obj = pickable;
+}
+
+void Player::drop_pickup()
+{
+	pickup_pos->remove_child(picked_up_obj);
+	get_parent()->add_child(picked_up_obj);
+	picked_up_obj->dropped();
+	picked_up_obj->set_global_transform(pickup_pos->get_global_transform());
+	picked_up_obj = NULL;
+}
+

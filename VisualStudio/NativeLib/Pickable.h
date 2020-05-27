@@ -1,26 +1,30 @@
 #pragma once
 #include "Common.h"
-#include <RigidBody.hpp>
-#include <CollisionShape.hpp>
 #include <MeshInstance.hpp>
-class Pickable : public RigidBody
+#include "Interactable.h"
+
+class Pickable : public Interactable
 {
-    GODOT_CLASS(Pickable, RigidBody);
+	GODOT_SUBCLASS(Pickable, Interactable);
 private:
-    bool picked_up = false;
-    Spatial *holder;
+	//bool picked_up = false;
+	//Spatial *holder;
 public:
-    static void _register_methods();
+	static void _register_methods();
 
-    Pickable();
-    ~Pickable();
+	Pickable();
+	~Pickable();
 
-    void _init();
-    void _ready();
-    
-    void _process(float delta);
-    void pick_up(Spatial *pickup_pos_node);
-    void carry();
-    void drop();
-    void throw_item(float power);
+	void _init() override;
+	void _ready() override;
+
+	void _process(float delta);
+
+	void picked();
+	void dropped();
+	// player should throw item
+	//void carry();
+	//void drop();
+	//void throw_item(float power);
+
 };

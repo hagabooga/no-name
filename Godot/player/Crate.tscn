@@ -3,17 +3,17 @@
 [ext_resource path="res://player/Pickable.gdns" type="Script" id=1]
 [ext_resource path="res://shadertest/psxshader.tres" type="Material" id=2]
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=1]
 material = ExtResource( 2 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=2]
 
 [node name="Crate" type="RigidBody"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
