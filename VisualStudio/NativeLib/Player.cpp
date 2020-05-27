@@ -2,6 +2,7 @@
 
 
 
+
 void Player::_register_methods()
 {
 	register_method("_process", &Player::_physics_process);
@@ -40,13 +41,17 @@ void Player::_ready()
 	equipped_gun = cast_to<Gun>(camera->get_node("EquippedGun")->get_node("Gun"));
 	ground_raycast = cast_to<RayCast>(get_node("GroundRayCast"));
 	pickup_pos = cast_to<Spatial>(get_node("PickupPos"));
+	interact_text = cast_to<Control>(get_node("CanvasLayer")->get_node("UnhandledUI")->
+		get_node("InteractText"));
 	picked_up_obj = NULL;
+
 }
 
 void Player::_physics_process(float delta)
 {
 
 	get_input(delta);
+	checkInteract();
 	if (equipped_gun != NULL)
 	{
 		if ((equipped_gun->automatic && input->is_action_pressed("fire")) || input->is_action_just_pressed("fire"))
@@ -129,28 +134,57 @@ void Player::get_input(float delta)
 	velocity.x = temp_velocity.x;
 	velocity.z = temp_velocity.z;
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0));
-
-	if (input->is_action_just_pressed("grab"))
-	{
-		interact();
-	}
 }
 
-void Player::interact()
+void Player::checkInteract()
 {
-	Interactable* interactable = cast_to<Interactable>(line_of_sight->get_collider());
+	bool press_interact_key = input->is_action_just_pressed("grab");
 	if (picked_up_obj != NULL)
 	{
-		drop_pickup();
-	}
-	else if (line_of_sight->is_colliding() && interactable != NULL)
-	{
-
-		if (cast_to<Pickable>(line_of_sight->get_collider()) != NULL)
+		if (press_interact_key)
 		{
-			pickup(cast_to<Pickable>(line_of_sight->get_collider()));
+			drop_pickup();
 		}
-		interactable->interact();
+		interact_text->set_visible(false);
+	}
+	else
+	{
+		bool see_something = line_of_sight->is_colliding();
+		if (see_something)
+		{
+			Interactable* interactable = cast_to<Interactable>(line_of_sight->get_collider());
+			bool is_interactable = interactable != NULL;
+			interact_text->set_visible(is_interactable);
+			if (press_interact_key)
+			{
+				if (picked_up_obj != NULL)
+				{
+					drop_pickup();
+				}
+				else if (is_interactable)
+				{
+					interact(interactable);
+				}
+
+			}
+		}
+		else
+		{
+			interact_text->set_visible(false);
+		}
+	}
+
+}
+
+
+
+void Player::interact(Interactable* interactable)
+{
+
+	interactable->interact();
+	if (cast_to<Pickable>(line_of_sight->get_collider()) != NULL)
+	{
+		pickup(cast_to<Pickable>(line_of_sight->get_collider()));
 	}
 }
 

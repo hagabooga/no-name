@@ -11,6 +11,7 @@
 #include <PhysicsBody.hpp>
 #include <AnimationPlayer.hpp>
 #include <RigidBody.hpp>
+#include <Control.hpp>
 #include "Pickable.h"
 #include "Gun.h"
 
@@ -39,9 +40,14 @@ private:
 	Pickable* held_body;
 	Gun* equipped_gun;
 	Spatial* pickup_pos;
-
-
 	Pickable* picked_up_obj;
+
+	Control* interact_text;
+
+
+
+
+	void checkInteract();
 
 public:
 	static void _register_methods();
@@ -58,7 +64,7 @@ public:
 	void rotate_head(InputEventMouseMotion* mouse);
 	void get_input(float delta);
 
-	void interact();
+	void interact(Interactable* interactable);
 	void pickup(Pickable* pickable);
 	void drop_pickup();
 };
