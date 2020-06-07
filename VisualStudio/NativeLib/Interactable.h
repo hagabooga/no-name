@@ -26,7 +26,7 @@ public:
 	virtual void _ready();
 
 	virtual void interact() = 0;
-	virtual void on_hit_gunshot() = 0;
+	//virtual void on_hit_gunshot() = 0;
 
 
 };

@@ -41,7 +41,7 @@ private:
 	Gun* equipped_gun;
 	Spatial* pickup_pos;
 	Pickable* picked_up_obj;
-
+	AnimationPlayer* animation_player;
 	Control* interact_text;
 
 

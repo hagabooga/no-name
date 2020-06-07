@@ -43,6 +43,7 @@ void Player::_ready()
 	pickup_pos = cast_to<Spatial>(get_node("PickupPos"));
 	interact_text = cast_to<Control>(get_node("CanvasLayer")->get_node("UnhandledUI")->
 		get_node("InteractText"));
+	animation_player = cast_to<AnimationPlayer>(get_node("AnimationPlayer"));
 	picked_up_obj = NULL;
 
 }
@@ -88,6 +89,8 @@ void Player::get_input(float delta)
 	Vector3 direction = Vector3();
 	Basis aim = camera->get_global_transform().basis;
 
+
+
 	if (input->is_action_pressed("ui_right"))
 	{
 		direction += aim.x;
@@ -106,31 +109,55 @@ void Player::get_input(float delta)
 	}
 	direction.y = 0;
 	direction.normalize();
+	bool backflipping = false;
+	bool in_air = false;
 	if (!ground_raycast->is_colliding() || velocity.y > 0)
 	{
 		velocity.y += gravity * delta;
+		in_air = true;
 	}
 	else
 	{
-		if (ground_raycast->is_colliding())
-			velocity.y = 0;
 		if (input->is_action_just_pressed("ui_select"))
-			velocity.y = jump_height;
+		{
+			if (input->is_action_pressed("ctrl"))
+			{
+				velocity.y = jump_height * 1.6;
+				Vector3 dir{};
+				dir -= aim.z;
+				dir.y = 0;
+				dir.normalize();
+				velocity -= dir * 5;
+				animation_player->play("backflip");
+				backflipping = true;
+			}
+			else
+			{
+				velocity.y = jump_height;
+			}
+		}
 	}
 	Vector3 temp_velocity = velocity;
 	temp_velocity.y = 0;
 
-	float speed = max_speed;
-	if (input->is_action_just_pressed("shift"))
-		speed = max_running_speed;
 
-	Vector3 target = direction * speed;
 
 	float acceleration = deaccel;
 	if (direction.dot(temp_velocity) > 0)
 		acceleration = accel;
 
-	temp_velocity = temp_velocity.linear_interpolate(target, acceleration * delta);
+	float speed = max_speed;
+	if (input->is_action_pressed("shift"))
+	{
+		speed = max_running_speed;
+		acceleration *= 1.15;
+	}
+
+	Vector3 target = direction * speed;
+
+	cout << in_air << endl;
+	temp_velocity = temp_velocity.linear_interpolate(target,
+		(in_air ? acceleration / 5 : acceleration) * delta);
 	velocity.x = temp_velocity.x;
 	velocity.z = temp_velocity.z;
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0));

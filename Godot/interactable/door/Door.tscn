@@ -13,7 +13,7 @@ albedo_texture = ExtResource( 2 )
 [sub_resource type="CubeMesh" id=3]
 material = SubResource( 2 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "close"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -28,8 +28,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 90, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "open"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
@@ -44,6 +43,7 @@ tracks/0/keys = {
 }
 
 [node name="Door" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 mode = 1
 script = ExtResource( 3 )
 
@@ -57,5 +57,5 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
-anims/close = SubResource( 5 )
-anims/open = SubResource( 4 )
+anims/close = SubResource( 4 )
+anims/open = SubResource( 5 )
