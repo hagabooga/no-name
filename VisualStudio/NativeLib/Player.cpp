@@ -118,6 +118,11 @@ void Player::get_input(float delta)
 	}
 	else
 	{
+		if (ground_raycast->is_colliding())
+		{
+			velocity.y = 0;
+		}
+
 		if (input->is_action_just_pressed("ui_select"))
 		{
 			if (input->is_action_pressed("ctrl"))
@@ -137,6 +142,12 @@ void Player::get_input(float delta)
 			}
 		}
 	}
+
+	if (input->is_action_pressed("ctrl"))
+	{
+		get_transform().scale(Vector3(1, 1, 0.5));
+	}
+
 	Vector3 temp_velocity = velocity;
 	temp_velocity.y = 0;
 
